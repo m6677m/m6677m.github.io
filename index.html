@@ -1,22 +1,138 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>我的第一个GitHub网站</title>
-    <style>
-        body {
-            font-family: "微软雅黑", sans-serif;
-            text-align: center;
-            margin-top: 100px;
-            background-color: #f0f8ff;
-        }
-        h1 { color: #2c3e50; }
-        p { color: #7f8c8d; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MG动画交互主页</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Microsoft YaHei", sans-serif;
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: #fff;
+    }
+    .container {
+      text-align: center;
+      padding: 0 20px;
+      max-width: 700px;
+      margin: 0 auto;
+      padding-top: 15vh;
+      position: relative;
+      z-index: 2;
+    }
+    .title {
+      font-size: 48px;
+      font-weight: bold;
+      margin-bottom: 12px;
+      opacity: 0;
+      transform: translateY(-30px);
+      animation: titleDrop 1s ease forwards 0.3s;
+    }
+    .subtitle {
+      font-size: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: subtitleFade 1s ease forwards 0.8s;
+      margin-bottom: 40px;
+    }
+    .btn-group {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 14px 32px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid #fff;
+      border-radius: 50px;
+      color: #fff;
+      font-size: 16px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transform: scale(0.8);
+      animation: btnPop 0.6s ease forwards 1.2s;
+    }
+    .btn:hover {
+      background: #fff;
+      color: #4facfe;
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+    .dot {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      animation: float 6s ease-in-out infinite;
+      z-index: 1;
+    }
+    .follow {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      transition: 0.1s ease;
+      z-index: 999;
+    }
+    @keyframes titleDrop {
+      to {opacity: 1;transform: translateY(0);}
+    }
+    @keyframes subtitleFade {
+      to {opacity: 1;transform: translateY(0);}
+    }
+    @keyframes btnPop {
+      to {opacity: 1;transform: scale(1);}
+    }
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(180deg); }
+      100% { transform: translateY(0px) rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
-    <h1>🎉 欢迎来到我的网站！</h1>
-    <p>这是用 GitHub Pages 搭建的免费网站</p>
-    <p>我的域名：https://你的用户名.github.io</p>
+  <div class="follow" id="follow"></div>
+  <div class="container">
+    <h1 class="title">👋 你好，欢迎来到我的主页</h1>
+    <p class="subtitle">MG扁平动画 · 鼠标交互 · 动态视觉</p>
+    <div class="btn-group">
+      <a class="btn" href="https://github.com/替换成你的用户名" target="_blank">我的GitHub</a>
+      <a class="btn" href="#">作品展示</a>
+      <a class="btn" href="#">联系我</a>
+    </div>
+  </div>
+
+  <script>
+    const follow = document.getElementById("follow");
+    document.addEventListener("mousemove", (e) => {
+      follow.style.left = e.clientX - 10 + "px";
+      follow.style.top = e.clientY - 10 + "px";
+    });
+    function createDots() {
+      for (let i = 0; i < 15; i++) {
+        const dot = document.createElement("div");
+        dot.className = "dot";
+        let size = Math.random() * 30 + 10;
+        dot.style.width = size + "px";
+        dot.style.height = size + "px";
+        dot.style.left = Math.random() * 100 + "vw";
+        dot.style.top = Math.random() * 100 + "vh";
+        dot.style.animationDelay = Math.random() * 4 + "s";
+        document.body.appendChild(dot);
+      }
+    }
+    createDots();
+  </script>
 </body>
 </html>
